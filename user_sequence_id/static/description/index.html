@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User ID in Sequence</title>
+</head>
+<body>
+    <section class="oe_container">
+        <div class="oe_row oe_spaced">
+            <h2 class="oe_slogan" style="color: #875A7B; font-weight: 700;">User ID in Sequence Prefix/Suffix</h2>
+            <h3 class="oe_slogan" style="opacity: 0.7;">Include current User ID in Odoo document numbers</h3>
+            <div class="oe_span12">
+                <div class="oe_demo oe_picture oe_screenshot" style="margin: 30px auto; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <div style="background-color: #875A7B; color: white; padding: 20px; text-align: center;">
+                        <h4 style="margin: 0; font-size: 24px;">SO/%(uid)s/%(year)s/0001</h4>
+                        <p style="margin: 10px 0 0 0; opacity: 0.8;">Example: Sales Order created by User ID 5</p>
+                    </div>
+                </div>
+                <p class="oe_mt32" style="font-size: 16px; line-height: 1.6; text-align: justify;">
+                    By default, Odoo sequences only support date-related placeholders (year, month, day, etc.). 
+                    This module enhances the core <code>ir.sequence</code> functionality by introducing the <strong><code>%(uid)s</code></strong> placeholder. 
+                    It allows you to dynamically inject the <strong>User ID</strong> of the person creating the record directly into the generated document number.
+                </p>
+                <div class="alert alert-info" role="alert" style="padding: 20px; border-radius: 8px; border: none; background-color: #f0f7fa; color: #31708f; border-left: 5px solid #31708f;">
+                    <i class="fa fa-info-circle" style="margin-right: 10px;"></i>
+                    <strong>How to use:</strong> Simply go to your sequence settings and add <code>%(uid)s</code> in the <b>Prefix</b> or <b>Suffix</b> field.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="oe_container oe_dark" style="background-color: #f8f9fa; padding: 40px 0;">
+        <div class="oe_row oe_spaced">
+            <h4 class="oe_slogan" style="color: #495057; text-transform: uppercase; letter-spacing: 2px;">Core Capabilities</h4>
+            <div class="oe_span6" style="text-align: center;">
+                <div style="font-size: 48px; color: #875A7B; margin-bottom: 15px;">
+                    <i class="fa fa-user-circle"></i>
+                </div>
+                <h5 style="font-weight: 600;">Dynamic User context</h5>
+                <p style="color: #6c757d;">Automatically detects the current user ID during record creation and applies it to the sequence.</p>
+            </div>
+            <div class="oe_span6" style="text-align: center;">
+                <div style="font-size: 48px; color: #28a745; margin-bottom: 15px;">
+                    <i class="fa fa-check-circle"></i>
+                </div>
+                <h5 style="font-weight: 600;">Safe Integration</h5>
+                <p style="color: #6c757d;">Transparently extends Odoo's internal logic. If the placeholder is not used, the system works as standard.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="oe_container" style="padding: 40px 0;">
+        <div class="oe_row oe_spaced">
+            <div class="oe_span12 text-center">
+                <h4 style="color: #875A7B;">Developed by <b>hamzbond</b></h4>
+                <p style="margin-top: 15px;">
+                    <a href="https://hamzbond.github.io" target="_blank" style="text-decoration: none; color: white; background-color: #875A7B; padding: 10px 25px; border-radius: 5px;">
+                        <i class="fa fa-globe"></i> Visit Website
+                    </a>
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
