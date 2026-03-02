@@ -1,30 +1,15 @@
 # -*- coding: utf-8 -*-
-
 from datetime import datetime
-
 import pytz
-
-from odoo import api, models, _
-from odoo.exceptions import UserError
-
-
-class UserIdService(object):
-
-    def __init__(self, env):
-        self.env = env
-
-    def get_current_uid(self):
-        user = self.env.user
-        if user:
-            return str(user.id)
-        return ''
-
+from odoo import models, _
 
 class IrSequence(models.Model):
     _inherit = 'ir.sequence'
 
-    @api.multi
     def _get_prefix_suffix(self):
+        """
+        Generic implementation for Odoo 11-19 supporting %(uid)s
+        """
         uses_custom_legend = any(
             '%(uid)s' in (rec.prefix or '') or '%(uid)s' in (rec.suffix or '')
             for rec in self
@@ -36,9 +21,13 @@ class IrSequence(models.Model):
             pytz.timezone(self._context.get('tz') or 'UTC')
         )
         if self._context.get('ir_sequence_date'):
-            effective_date = datetime.strptime(self._context.get('ir_sequence_date'), '%Y-%m-%d')
+            try:
+                effective_date = datetime.strptime(self._context.get('ir_sequence_date'), '%Y-%m-%d')
+            except (ValueError, TypeError): pass
         if self._context.get('ir_sequence_date_range'):
-            range_date = datetime.strptime(self._context.get('ir_sequence_date_range'), '%Y-%m-%d')
+            try:
+                range_date = datetime.strptime(self._context.get('ir_sequence_date_range'), '%Y-%m-%d')
+            except (ValueError, TypeError): pass
 
         sequences = {
             'year': '%Y', 'month': '%m', 'day': '%d', 'y': '%y', 'doy': '%j', 'woy': '%W',
@@ -50,7 +39,7 @@ class IrSequence(models.Model):
             interpolation_dict['range_' + key] = range_date.strftime(fmt)
             interpolation_dict['current_' + key] = now.strftime(fmt)
 
-        interpolation_dict['uid'] = UserIdService(self.env).get_current_uid()
+        interpolation_dict['uid'] = str(self.env.user.id)
 
         def _interpolate(value, data):
             return (value % data) if value else ''
@@ -59,7 +48,7 @@ class IrSequence(models.Model):
         try:
             prefix = _interpolate(record.prefix, interpolation_dict)
             suffix = _interpolate(record.suffix, interpolation_dict)
-        except ValueError:
-            raise UserError(_('Invalid prefix or suffix for sequence "%s"') % (record.name,))
+        except (ValueError, KeyError, TypeError):
+            return super(IrSequence, self)._get_prefix_suffix()
 
         return prefix, suffix
