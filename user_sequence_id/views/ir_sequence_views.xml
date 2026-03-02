@@ -5,12 +5,14 @@
         <field name="model">ir.sequence</field>
         <field name="inherit_id" ref="base.sequence_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//page" position="inside">
-                <group col="3" string="Additional Custom Legend (for prefix, suffix)">
-                    <group>
-                        <label colspan="2" string="User ID: %%(uid)s"/>
+            <xpath expr="//notebook" position="inside">
+                <page string="Custom Legend">
+                    <group col="3" string="Additional Custom Legend (for prefix, suffix)">
+                        <group>
+                            <label colspan="2" string="User ID: %%(uid)s"/>
+                        </group>
                     </group>
-                </group>
+                </page>
             </xpath>
         </field>
     </record>
