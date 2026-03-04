@@ -26,7 +26,9 @@ Usage:
     'support': 'hamzbond@gmail.com',
     'images': ['static/description/banner.png'],
     'depends': ['base'],
-    'data': [],
+    'data': [
+        'views/ir_sequence_views.xml',
+    ],
     'installable': True,
     'application': False,
     'auto_install': False,
