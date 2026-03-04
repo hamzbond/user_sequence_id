@@ -26,7 +26,10 @@ Usage:
     'support': 'hamzbond@gmail.com',
     'images': ['static/description/banner.png'],
     'depends': ['base'],
-    'data': [],
+    'data': [
+        'views/ir_sequence_views.xml',
+    ],
+    'uninstall_hook': 'uninstall_hook',
     'installable': True,
     'application': False,
     'auto_install': False,
